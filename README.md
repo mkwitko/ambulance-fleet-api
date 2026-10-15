@@ -23,7 +23,7 @@ flowchart LR
   App[ambulance-fleet-app<br/>Expo mobile app]
   Comms[ambulance-fleet-comms<br/>comms-only mobile app]
   Driver[ambulance-fleet-driver<br/>driver mobile app]
-  ServerServer[ambulance-fleet-api<br/>Fastify + Prisma]
+  Server[ambulance-fleet-api<br/>Fastify + Prisma]
   PG[(PostgreSQL)]
   R2[(R2 / S3 storage)]
   Ably{{Ably realtime}}
