@@ -1,4 +1,4 @@
-# Connect API
+# Ambulance Fleet API
 
 Multi-tenant backend for a fleet communications and operations platform for ambulance services: companies, bases, ambulances, shifts, status, chat and per-tenant module billing.
 
@@ -19,11 +19,11 @@ Multi-tenant backend for a fleet communications and operations platform for ambu
 
 ```mermaid
 flowchart LR
-  Dash[connect-dashboard-refactor<br/>web operator UI]
-  App[connect-app-refactor<br/>Expo mobile app]
-  Comms[connect-comms-app<br/>comms-only mobile app]
-  Driver[connect-driver-app<br/>driver mobile app]
-  Server[connect-api<br/>Fastify + Prisma]
+  Dash[ambulance-fleet-dashboard<br/>web operator UI]
+  App[ambulance-fleet-app<br/>Expo mobile app]
+  Comms[ambulance-fleet-comms<br/>comms-only mobile app]
+  Driver[ambulance-fleet-driver<br/>driver mobile app]
+  ServerServer[ambulance-fleet-api<br/>Fastify + Prisma]
   PG[(PostgreSQL)]
   R2[(R2 / S3 storage)]
   Ably{{Ably realtime}}
@@ -110,10 +110,10 @@ swagger.json     generated OpenAPI contract
 
 ## Related repositories
 
-- [connect-app-refactor](https://github.com/mkwitko/connect-app-refactor): mobile client
-- [connect-dashboard-refactor](https://github.com/mkwitko/connect-dashboard-refactor): operator dashboard
-- [connect-comms-app](https://github.com/mkwitko/connect-comms-app): communications app
-- [connect-driver-app](https://github.com/mkwitko/connect-driver-app): driver app
+- [ambulance-fleet-app](https://github.com/mkwitko/ambulance-fleet-app): mobile client
+- [ambulance-fleet-dashboard](https://github.com/mkwitko/ambulance-fleet-dashboard): operator dashboard
+- [ambulance-fleet-comms](https://github.com/mkwitko/ambulance-fleet-comms): communications app
+- [ambulance-fleet-driver](https://github.com/mkwitko/ambulance-fleet-driver): driver app
 
 ## License
 
