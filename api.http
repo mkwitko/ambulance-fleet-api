@@ -1,0 +1,206 @@
+@baseUrl=http://localhost:3333
+@accessToken={{SignIn.response.body.accessToken}}
+
+###
+# @name GetHealthCheck
+Get {{baseUrl}}/health
+
+###
+# @name SignIn
+Post {{baseUrl}}/auth/sign-in
+Content-Type: application/json
+
+{
+  "document": "00000000000",
+  "password": "<password>"
+}
+
+###
+# @name SignOut
+Post {{baseUrl}}/auth/sign-out
+
+###
+# @name CheckAuth
+Get {{baseUrl}}/auth/status
+
+###
+# @name GetCompanyGroups
+Get {{baseUrl}}/company-groups
+
+###
+# @name GetCompanyGroup
+Get {{baseUrl}}/company-groups/cmh68x8n80000ro3pyxnuaz5x
+Authorization: Bearer {{accessToken}}
+
+###
+# @name CreateCompanyGroup
+Post {{baseUrl}}/company-groups
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "name": "Grupo empresarial 1",
+  "document": "11111111000111",
+  "phones": [
+    {
+      "number": "+551100000001"
+    }
+  ]
+}
+
+###
+# @name UpdateCompanyGroup
+Put {{baseUrl}}/company-groups/cmgmci5ec0000roys4pmw7gtp
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "name": "Super grupo empresarial 2",
+  "document": "11111111000111"
+}
+
+###
+# @name DeleteCompanyGroup
+Delete {{baseUrl}}/company-groups/cmgmci5ec0000roys4pmw7gtp
+Authorization: Bearer {{accessToken}}
+
+###
+# @name CreateCompanyGroupPhoneNumber
+Post {{baseUrl}}/company-groups/cmgmci5ec0000roys4pmw7gtp/phones
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "number": "+551100000002"
+}
+
+###
+# @name DeleteCompanyGroupPhoneNumber
+Delete {{baseUrl}}/company-groups/cmgmci5ec0000roys4pmw7gtp/phones/cmgmci5ee0001royspndareir
+Authorization: Bearer {{accessToken}}
+
+###
+# @name GetCompanies
+Get {{baseUrl}}/companies
+Authorization: Bearer {{accessToken}}
+
+###
+# @name GetCompaniesByCompanyGroupId
+Get {{baseUrl}}/companies?companyGroupId=cmgmci5ec0000roys4pmw7gtp
+Authorization: Bearer {{accessToken}}
+
+###
+# @name GetCompany
+Get {{baseUrl}}/companies/cm5abc123def4ghij5klm6nop
+Authorization: Bearer {{accessToken}}
+
+###
+# @name CreateCompany
+Post {{baseUrl}}/companies
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "name": "Empresa 1",
+  "document": "11111111000111",
+  "companyGroupId": "cmgmci5ec0000roys4pmw7gtp",
+  "phones": [
+    {
+      "number": "+551100000003"
+    }
+  ]
+}
+
+###
+# @name UpdateCompany
+Put {{baseUrl}}/companies/cm5abc123def4ghij5klm6nop
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "name": "Empresa Atualizada",
+  "document": "11111111000111"
+}
+
+###
+# @name DeleteCompany
+Delete {{baseUrl}}/companies/cm5abc123def4ghij5klm6nop
+Authorization: Bearer {{accessToken}}
+
+###
+# @name CreateCompanyPhoneNumber
+Post {{baseUrl}}/companies/cm5abc123def4ghij5klm6nop/phones
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "number": "+551100000004"
+}
+
+###
+# @name DeleteCompanyPhoneNumber
+Delete {{baseUrl}}/companies/cm5abc123def4ghij5klm6nop/phones/cm5xyz789abc0defg1hij2klm
+Authorization: Bearer {{accessToken}}
+
+###
+# @name GetUnits
+Get {{baseUrl}}/units
+Authorization: Bearer {{accessToken}}
+
+###
+# @name GetUnitsByCompanyId
+Get {{baseUrl}}/units?companyId=cm5abc123def4ghij5klm6nop
+Authorization: Bearer {{accessToken}}
+
+###
+# @name GetUnit
+Get {{baseUrl}}/units/cm5unit123def4ghij5klm6xyz
+Authorization: Bearer {{accessToken}}
+
+###
+# @name CreateUnit
+Post {{baseUrl}}/units
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "name": "Unidade Centro",
+  "document": "11111111000111",
+  "companyId": "cm5abc123def4ghij5klm6nop",
+  "phones": [
+    {
+      "number": "+551100000005"
+    }
+  ]
+}
+
+###
+# @name UpdateUnit
+Put {{baseUrl}}/units/cm5unit123def4ghij5klm6xyz
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "name": "Unidade Centro Atualizada",
+  "document": "11111111000111"
+}
+
+###
+# @name DeleteUnit
+Delete {{baseUrl}}/units/cm5unit123def4ghij5klm6xyz
+Authorization: Bearer {{accessToken}}
+
+###
+# @name CreateUnitPhoneNumber
+Post {{baseUrl}}/units/cm5unit123def4ghij5klm6xyz/phones
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "number": "+551100000006"
+}
+
+###
+# @name DeleteUnitPhoneNumber
+Delete {{baseUrl}}/units/cm5unit123def4ghij5klm6xyz/phones/cm5phone789abc0defg1hij2abc
+Authorization: Bearer {{accessToken}}
