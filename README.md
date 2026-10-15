@@ -51,6 +51,57 @@ flowchart LR
 - Clients obtain a short-lived Ably token request scoped to a tenant channel and an Agora token from the backend; the browser and phones then talk to Ably and Agora directly.
 - Routes only validate and orchestrate; permissions live in `src/auth`.
 
+Layers inside this repo (`src/app.ts` registers hooks and `src/http/routing/index.ts` registers the route groups):
+
+```mermaid
+flowchart TD
+  Routing["Route groups<br/>src/http/routing/*"] --> Routes["One file per route, Zod schema<br/>src/http/routes/*"]
+  Routes --> AuthHook["JWT cookie/bearer hook<br/>src/http/hooks/auth.ts"]
+  Routes --> Casl["CASL abilities (company group, company)<br/>src/auth, src/http/helpers/casl.ts"]
+  Routes --> Prisma["Prisma client<br/>src/database/prisma.ts"]
+  Routes --> R2["R2 presigned URLs<br/>src/lib/cloudfare.ts"]
+  Prisma --> PG[(PostgreSQL)]
+  Env["Zod-validated env<br/>src/env"] -.-> Routes
+  Err["Error handler + exceptions<br/>src/error-handler.ts"] -.-> Routes
+```
+
+Sign-in and tenant scoping (`src/http/routes/auth/sign-in.ts`, `src/http/hooks/auth.ts`, `src/http/routes/ambulances/get-ambulances.ts`):
+
+```mermaid
+sequenceDiagram
+  participant C as Client
+  participant A as API
+  participant D as PostgreSQL
+  C->>A: POST /auth/sign-in (CPF, password)
+  A->>D: find user by document
+  A->>A: argon2 verify, sign RS256 JWT (30 min access, 7 day refresh)
+  A-->>C: tokens + accessToken cookie
+  C->>A: GET /ambulances (cookie or Bearer)
+  A->>A: auth hook verifies JWT
+  A->>D: query filtered by company group / company / unit / base from the token
+  A-->>C: tenant-scoped page
+```
+
+Data model summary (`prisma/schema.prisma`, 17 models; main entities only):
+
+```mermaid
+erDiagram
+  CompanyGroup ||--o{ Company : owns
+  Company ||--o{ Unit : has
+  Unit ||--o{ Base : has
+  Base ||--o{ Ambulance : hosts
+  Ambulance ||--o{ AmbulanceShift : runs
+  Ambulance ||--o{ AmbulanceStatus : reports
+  Ambulance ||--o{ AmbulanceDocuments : has
+  Ambulance ||--o{ Chat : "talks in"
+  Chat ||--o{ Messages : holds
+  Messages ||--o{ MessageReadReceipt : "read by"
+  Company ||--o{ CompanyModule : contracts
+  Module ||--o{ CompanyModule : "billed as"
+  CompanyGroup ||--o{ Integration : configures
+  User }o--o| Company : "belongs to"
+```
+
 ## Key engineering decisions
 
 - Multi-tenant RBAC with CASL: roles, subjects and tenant-scoped conditions in `src/auth/` and `src/http/helpers/casl.ts`.
