@@ -57,7 +57,7 @@ app.register(fastifyJwt, {
 app.register(fastifySwagger, {
   openapi: {
     info: {
-      title: "Connect | Server",
+      title: "Ambulance Fleet | API",
       version: "2.0.0",
     },
     components: {
